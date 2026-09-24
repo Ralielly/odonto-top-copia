@@ -1,0 +1,1 @@
+// Definição das tabelas do banco ficará aqui.
