@@ -1,0 +1,613 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.paciente": {
+      "name": "paciente",
+      "schema": "",
+      "columns": {
+        "idPaciente": {
+          "name": "idPaciente",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"paciente_idPaciente_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "idPessoaPaciente": {
+          "name": "idPessoaPaciente",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dataCadastro": {
+          "name": "dataCadastro",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "planoDeSaude": {
+          "name": "planoDeSaude",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "observacoes": {
+          "name": "observacoes",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "paciente_idPessoaPaciente_fkey": {
+          "name": "paciente_idPessoaPaciente_fkey",
+          "tableFrom": "paciente",
+          "tableTo": "pessoa",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idPessoaPaciente"
+          ],
+          "columnsTo": [
+            "idPessoa"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.pagamento": {
+      "name": "pagamento",
+      "schema": "",
+      "columns": {
+        "idPagamento": {
+          "name": "idPagamento",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "dataPagamento": {
+          "name": "dataPagamento",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formaPagamento": {
+          "name": "formaPagamento",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idPagamentoConsulta": {
+          "name": "idPagamentoConsulta",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "pagamento_idPagamentoConsulta_fkey": {
+          "name": "pagamento_idPagamentoConsulta_fkey",
+          "tableFrom": "pagamento",
+          "tableTo": "consulta",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idPagamentoConsulta"
+          ],
+          "columnsTo": [
+            "idConsulta"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": true
+    },
+    "public.funcionario": {
+      "name": "funcionario",
+      "schema": "",
+      "columns": {
+        "idFuncionario": {
+          "name": "idFuncionario",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"funcionario_idFuncionario_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "idPessoaFuncionario": {
+          "name": "idPessoaFuncionario",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idCargoFuncionario": {
+          "name": "idCargoFuncionario",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "funcionario_idCargoFuncionario_fkey": {
+          "name": "funcionario_idCargoFuncionario_fkey",
+          "tableFrom": "funcionario",
+          "tableTo": "cargo",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idCargoFuncionario"
+          ],
+          "columnsTo": [
+            "idCargo"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "funcionario_idPessoaFuncionario_fkey": {
+          "name": "funcionario_idPessoaFuncionario_fkey",
+          "tableFrom": "funcionario",
+          "tableTo": "pessoa",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idPessoaFuncionario"
+          ],
+          "columnsTo": [
+            "idPessoa"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.pessoa": {
+      "name": "pessoa",
+      "schema": "",
+      "columns": {
+        "idPessoa": {
+          "name": "idPessoa",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"pessoa_idPessoa_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "cpfPessoa": {
+          "name": "cpfPessoa",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nomePessoa": {
+          "name": "nomePessoa",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefone": {
+          "name": "telefone",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "endereco": {
+          "name": "endereco",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ativo": {
+          "name": "ativo",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "pessoa_cpfPessoa_key": {
+          "columns": [
+            "cpfPessoa"
+          ],
+          "nullsNotDistinct": false,
+          "name": "pessoa_cpfPessoa_key"
+        }
+      },
+      "checkConstraints": {},
+      "policies": {
+        "criar pessoas": {
+          "name": "criar pessoas",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "public"
+          ],
+          "withCheck": "true"
+        },
+        "editar pessoas": {
+          "name": "editar pessoas",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "public"
+          ]
+        },
+        "excluir pessoa": {
+          "name": "excluir pessoa",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "public"
+          ]
+        },
+        "selecionar usuarios": {
+          "name": "selecionar usuarios",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "public"
+          ]
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.consultaProcedimento": {
+      "name": "consultaProcedimento",
+      "schema": "",
+      "columns": {
+        "idConsulProc": {
+          "name": "idConsulProc",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idProcConsul": {
+          "name": "idProcConsul",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "consultaProcedimento_idConsulProc_fkey": {
+          "name": "consultaProcedimento_idConsulProc_fkey",
+          "tableFrom": "consultaProcedimento",
+          "tableTo": "consulta",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idConsulProc"
+          ],
+          "columnsTo": [
+            "idConsulta"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "consultaProcedimento_idProcConsul_fkey": {
+          "name": "consultaProcedimento_idProcConsul_fkey",
+          "tableFrom": "consultaProcedimento",
+          "tableTo": "procedimento",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idProcConsul"
+          ],
+          "columnsTo": [
+            "idProcedimento"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.consulta": {
+      "name": "consulta",
+      "schema": "",
+      "columns": {
+        "idConsulta": {
+          "name": "idConsulta",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"consulta_idConsulta_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "dataHora": {
+          "name": "dataHora",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo": {
+          "name": "tipo",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idPacienteConsulta": {
+          "name": "idPacienteConsulta",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idFuncionarioConsulta": {
+          "name": "idFuncionarioConsulta",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "consulta_idFuncionarioConsulta_fkey": {
+          "name": "consulta_idFuncionarioConsulta_fkey",
+          "tableFrom": "consulta",
+          "tableTo": "funcionario",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idFuncionarioConsulta"
+          ],
+          "columnsTo": [
+            "idFuncionario"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "consulta_idPacienteConsulta_fkey": {
+          "name": "consulta_idPacienteConsulta_fkey",
+          "tableFrom": "consulta",
+          "tableTo": "paciente",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "idPacienteConsulta"
+          ],
+          "columnsTo": [
+            "idPaciente"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {
+        "Enable delete for users based on user_id": {
+          "name": "Enable delete for users based on user_id",
+          "as": "PERMISSIVE",
+          "for": "DELETE",
+          "to": [
+            "public"
+          ],
+          "using": "true"
+        },
+        "adicionar consultas": {
+          "name": "adicionar consultas",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": [
+            "authenticated"
+          ]
+        },
+        "atualizar consultas": {
+          "name": "atualizar consultas",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": [
+            "authenticated"
+          ]
+        },
+        "selecionar consultas": {
+          "name": "selecionar consultas",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "public"
+          ]
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.procedimento": {
+      "name": "procedimento",
+      "schema": "",
+      "columns": {
+        "idProcedimento": {
+          "name": "idProcedimento",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"procedimento_idProcedimento_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "nomeProcedimento": {
+          "name": "nomeProcedimento",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descricao": {
+          "name": "descricao",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valor": {
+          "name": "valor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.cargo": {
+      "name": "cargo",
+      "schema": "",
+      "columns": {
+        "idCargo": {
+          "name": "idCargo",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "byDefault",
+            "name": "\"cargo_idCargo_seq\"",
+            "increment": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "startWith": "1",
+            "cycle": false,
+            "schema": "public"
+          }
+        },
+        "nomeCargo": {
+          "name": "nomeCargo",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {
+        "Permitir leitura dos cargos": {
+          "name": "Permitir leitura dos cargos",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": [
+            "authenticated"
+          ],
+          "using": "true"
+        }
+      },
+      "isRLSEnabled": true
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}
