@@ -1,10 +1,17 @@
 import { db } from "../database/db.js";
+import { tarefas } from "../database/schema.js"; // Certifique-se de que o caminho e o nome da tabela estão corretos
+import { eq } from "drizzle-orm";
 
 class TarefaModel {
   static async listarTodas() {
     try {
-      const resultado = await db.query("SELECT * FROM tarefas ORDER BY id;");
-      return resultado.rows;
+      // Equivalente a SELECT * FROM tarefas ORDER BY id;
+      const resultado = await db
+        .select()
+        .from(tarefas)
+        .orderBy(tarefas.id);
+        
+      return resultado;
     } catch (error) {
       throw error;
     }
@@ -13,9 +20,15 @@ class TarefaModel {
   static async criarTarefa(dadosTarefa) {
     try {
       const { titulo } = dadosTarefa;
-      const query = "INSERT INTO tarefas (titulo) VALUES ($1) RETURNING *;";
-      const resultado = await db.query(query, [titulo]);
-      return resultado.rows[0];
+      // Equivalente a INSERT INTO tarefas (titulo) VALUES ($1) RETURNING *;
+      const resultado = await db
+        .insert(tarefas)
+        .values({
+          titulo,
+        })
+        .returning();
+        
+      return resultado[0];
     } catch (error) {
       throw error;
     }
@@ -23,8 +36,10 @@ class TarefaModel {
 
   static async excluirTarefa(id) {
     try {
-      const query = "DELETE FROM tarefas WHERE id = $1;";
-      await db.query(query, [id]);
+      // Equivalente a DELETE FROM tarefas WHERE id = $1;
+      await db
+        .delete(tarefas)
+        .where(eq(tarefas.id, id));
     } catch (error) {
       throw error;
     }

@@ -1,26 +1,38 @@
 import { db } from "../database/db.js";
+import { pessoa } from "../database/schema.js";
+import { eq } from "drizzle-orm";
 
 class UsuarioModel {
 
-  static async buscarPorUsuario(usuario) {
+  static async buscarPorUsuario(emailOuUsuario) {
     try {
-      const query = "SELECT * FROM usuarios WHERE usuario = $1;";
-      const resultado = await db.query(query, [usuario]);
-      return resultado.rows[0]; // Retorna o primeiro usuário encontrado ou undefined
+      // Buscando pelo email ou nome na tabela pessoa
+      const resultado = await db
+        .select()
+        .from(pessoa)
+        .where(eq(pessoa.email, emailOuUsuario));
+        
+      return resultado[0]; // Retorna o primeiro registro encontrado
     } catch (error) {
       throw error;
     }
   }
 
-  static async criarUsuario(nome, usuario, senha) {
+  static async criarUsuario(nomePessoa, email, telefone, cpfPessoa, senha) {
     try {
-      const query = `
-        INSERT INTO usuarios (nome, usuario, senha) 
-        VALUES ($1, $2, $3) 
-        RETURNING *;
-      `;
-      const resultado = await db.query(query, [nome, usuario, senha]);
-      return resultado.rows[0];
+      const resultado = await db
+        .insert(pessoa)
+        .values({
+          nomePessoa,
+          email,
+          telefone,
+          cpfPessoa,
+          tipo: "usuario",
+          ativo: true
+        })
+        .returning();
+
+      return resultado[0];
     } catch (error) {
       throw error;
     }
