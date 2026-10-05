@@ -5,7 +5,7 @@ import { sql } from "drizzle-orm"
 
 export const paciente = pgTable("paciente", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idPaciente: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""paciente_idPaciente_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idPaciente: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "paciente_idPaciente_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
 	idPessoaPaciente: bigint({ mode: "number" }).notNull(),
 	dataCadastro: timestamp({ withTimezone: true, mode: 'string' }).notNull(),
@@ -38,7 +38,7 @@ export const pagamento = pgTable("pagamento", {
 
 export const funcionario = pgTable("funcionario", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idFuncionario: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""funcionario_idFuncionario_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idFuncionario: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "funcionario_idFuncionario_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
 	idPessoaFuncionario: bigint({ mode: "number" }).notNull(),
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
@@ -58,7 +58,7 @@ export const funcionario = pgTable("funcionario", {
 
 export const pessoa = pgTable("pessoa", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idPessoa: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""pessoa_idPessoa_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idPessoa: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "pessoa_idPessoa_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	cpfPessoa: varchar().notNull(),
 	nomePessoa: varchar().notNull(),
 	telefone: varchar().notNull(),
@@ -95,7 +95,7 @@ export const consultaProcedimento = pgTable("consultaProcedimento", {
 
 export const consulta = pgTable("consulta", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idConsulta: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""consulta_idConsulta_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idConsulta: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "consulta_idConsulta_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	dataHora: timestamp({ withTimezone: true, mode: 'string' }).notNull(),
 	tipo: varchar().notNull(),
 	status: varchar().notNull(),
@@ -122,7 +122,7 @@ export const consulta = pgTable("consulta", {
 
 export const procedimento = pgTable("procedimento", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idProcedimento: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""procedimento_idProcedimento_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idProcedimento: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "procedimento_idProcedimento_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	nomeProcedimento: varchar().notNull(),
 	descricao: varchar().notNull(),
 	valor: numeric().notNull(),
@@ -130,7 +130,7 @@ export const procedimento = pgTable("procedimento", {
 
 export const cargo = pgTable("cargo", {
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	idCargo: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: ""cargo_idCargo_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
+	idCargo: bigint({ mode: "number" }).primaryKey().generatedByDefaultAsIdentity({ name: "cargo_idCargo_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 9223372036854775807 }),
 	nomeCargo: varchar().notNull(),
 }, (table) => [
 	pgPolicy("Permitir leitura dos cargos", { as: "permissive", for: "select", to: ["authenticated"], using: sql`true` }),
